@@ -18,4 +18,9 @@ public class NewsPieceService {
     public NewsPiece searchById(String Id){
         return newsPieceRepository.findAllById(Id);
     }
+
+    public String deleteById(String Id){
+        newsPieceRepository.deleteNewsPieceById(Id);
+        return "Delete "+Id+" success!";
+    }
 }

@@ -17,4 +17,6 @@ public interface NewsPieceRepository extends MongoRepository<NewsPiece, String> 
     NewsPiece save(NewsPiece newsPiece);
 
     NewsPiece findAllById(String Id);
+
+    void deleteNewsPieceById(String Id);
 }

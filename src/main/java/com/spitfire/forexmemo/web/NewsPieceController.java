@@ -16,9 +16,14 @@ public class NewsPieceController {
         return newsPieceService.saveNewsPiece(np).toString();
     }
 
-    @RequestMapping(value="/searchId/{Id}", method = RequestMethod.GET)
+    @RequestMapping(value="/search/{Id}", method = RequestMethod.GET)
     public String searchId(@PathVariable("Id") String Id){
         return newsPieceService.searchById(Id).toString();
+    }
+
+    @RequestMapping(value="/delete/{Id}", method = RequestMethod.DELETE)
+    public String deleteId(@PathVariable("Id") String Id){
+        return newsPieceService.deleteById(Id);
     }
 
 }
