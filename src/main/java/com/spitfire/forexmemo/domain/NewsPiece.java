@@ -1,10 +1,8 @@
 /*
- *
+ * 实体类，定义新闻类
  * @author: Jiazhen Zhang
- * @date: 2018/05/03
- *
+ * @version:0.0.1, 2018/05/04
  * */
-
 package com.spitfire.forexmemo.domain;
 
 import org.springframework.data.annotation.Id;

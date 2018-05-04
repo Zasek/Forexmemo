@@ -1,3 +1,9 @@
+/*
+ * RESTful，关于News的HTTP请求由这个类Handle
+ * @author: Jiazhen Zhang
+ * @version:0.0.1, 2018/05/04
+ * */
+
 package com.spitfire.forexmemo.web;
 
 import com.spitfire.forexmemo.domain.NewsPiece;
