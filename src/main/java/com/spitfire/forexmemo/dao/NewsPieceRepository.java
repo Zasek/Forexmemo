@@ -14,4 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NewsPieceRepository extends MongoRepository<NewsPiece, String> {
 
+    NewsPiece save(NewsPiece newsPiece);
+
+    NewsPiece findAllById(String Id);
 }

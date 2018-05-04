@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class NewsPiece {
     @Id
-    private String Id;
+    private String id;
 
     private String content;
     private String source;
@@ -24,11 +24,7 @@ public class NewsPiece {
     private Date postTime;
 
     public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
+        return id;
     }
 
     public String getContent() {
@@ -84,7 +80,7 @@ public class NewsPiece {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewsPiece newsPiece = (NewsPiece) o;
-        return Objects.equals(Id, newsPiece.Id) &&
+        return Objects.equals(id, newsPiece.id) &&
                 Objects.equals(content, newsPiece.content) &&
                 Objects.equals(source, newsPiece.source) &&
                 Objects.equals(labels, newsPiece.labels) &&
@@ -95,7 +91,19 @@ public class NewsPiece {
 
     @Override
     public int hashCode() {
+        return Objects.hash(id, content, source, labels, originLang, actualTime, postTime);
+    }
 
-        return Objects.hash(Id, content, source, labels, originLang, actualTime, postTime);
+    @Override
+    public String toString() {
+        return "NewsPiece{" +
+                "Id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                ", source='" + source + '\'' +
+                ", labels='" + labels + '\'' +
+                ", originLang='" + originLang + '\'' +
+                ", actualTime=" + actualTime +
+                ", postTime=" + postTime +
+                '}';
     }
 }
