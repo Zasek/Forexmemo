@@ -25,6 +25,9 @@ public class NewsPieceService {
     }
 
     public String partialUpdate(String Id, String updateContent, String type){
+        if(updateContent.equals("")){
+            return "Invalid input, content == ''";
+        }
         return newsPieceRepository.partialUpdate(Id, updateContent, type);
     }
 }
