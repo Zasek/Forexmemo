@@ -61,7 +61,7 @@ public class NewsPieceService {
     }
 
     /*
-     * 对即将进行的save进行一定的Validation，尽量保证有效并且不会被恶意利用
+     * 对即将进行的save进行一定的Validation，尽量保证有效并且不会被恶意利用。暂定为正文不能为空。
      * @param np 待添加的NewsPiece
      * @return 布尔值，True为通过审查，False未通过
      * */
