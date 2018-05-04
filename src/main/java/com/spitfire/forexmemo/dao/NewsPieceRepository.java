@@ -12,11 +12,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NewsPieceRepository extends MongoRepository<NewsPiece, String> {
-
+public interface NewsPieceRepository extends MongoRepository<NewsPiece, String>, PartialUpdate {
     NewsPiece save(NewsPiece newsPiece);
-
-    NewsPiece findAllById(String Id);
-
+    NewsPiece findNewsPieceById(String Id);
     void deleteNewsPieceById(String Id);
 }

@@ -16,11 +16,15 @@ public class NewsPieceService {
     }
 
     public NewsPiece searchById(String Id){
-        return newsPieceRepository.findAllById(Id);
+        return newsPieceRepository.findNewsPieceById(Id);
     }
 
     public String deleteById(String Id){
         newsPieceRepository.deleteNewsPieceById(Id);
         return "Delete "+Id+" success!";
+    }
+
+    public String partialUpdate(String Id, String updateContent, String type){
+        return newsPieceRepository.partialUpdate(Id, updateContent, type);
     }
 }
