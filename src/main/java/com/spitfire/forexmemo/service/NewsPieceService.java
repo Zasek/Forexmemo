@@ -22,8 +22,11 @@ public class NewsPieceService {
      * @param newsPiece 完整的NewsPiece对象
      * @return 被保存的NewsPiece对象
      * */
-    public NewsPiece saveNewsPiece(NewsPiece np){
-        return newsPieceRepository.save(np);
+    public String saveNewsPiece(NewsPiece np){
+        if(!validateSave(np)){
+            return "Invalid NewsPiece";
+        }
+        return newsPieceRepository.save(np).toString();
     }
 
     /*
@@ -51,12 +54,40 @@ public class NewsPieceService {
      * @return 暂定为一个代表成功还是失败的字符串
      * */
     public String partialUpdate(String Id, String updateContent, String type){
-        if(updateContent.equals("")){
-            return "Invalid input, content == ''";
-        }
-        if(type.equals("_id")){
-            return "Invalid type";
+        if(!validateUpdate(Id, updateContent, type)){
+            return "Invalid Update Input";
         }
         return newsPieceRepository.partialUpdate(Id, updateContent, type);
+    }
+
+    /*
+     * 对即将进行的save进行一定的Validation，尽量保证有效并且不会被恶意利用
+     * @param np 待添加的NewsPiece
+     * @return 布尔值，True为通过审查，False未通过
+     * */
+    public boolean validateSave(NewsPiece np){
+        boolean result = true;
+        if(np.getActualTime() == null||np.getContent().equals("")||np.getPostTime()==null) result = false;
+        return result;
+    }
+
+    /*
+     * 对即将进行的update进行一定的Validation，尽量保证有效并且不会被恶意利用
+     * @param Id 待修改的NewsPiece的唯一标识 updateContent 新的内容 type 字段名
+     * @return 布尔值，True为通过审查，False未通过
+     * */
+    public boolean validateUpdate(String Id, String updateContent, String type){
+        boolean result = true;
+        if(updateContent.equals("")){
+            result = false;
+        }
+        if(type.equals("_id")){
+            result = false;
+        }
+        NewsPiece np = newsPieceRepository.findNewsPieceById(Id);
+        if(np == null) {
+            result = false;
+        }
+        return result;
     }
 }
