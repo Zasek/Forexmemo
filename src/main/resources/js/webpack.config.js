@@ -1,25 +1,27 @@
-var path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-    entry: './app.js', //entry为入口文件，即webpack以这个文件为基础打包成另一个文件，所以entry文件包括了要导入的文件
-    devtool: 'sourcemaps',
-    cache: true,
-    debug: true,
-    output: { //打包输出出bundle.js文件，这个文件就可以导入HTML中了
-        path: __dirname,
-        filename: '../static/bundle.js'
-    },
-    module: {
-        loaders: [
+    mode: 'development',
+    entry:[
+        './app.js'
+    ],
+    module:{
+        rules:[
             {
-                test: path.join(__dirname, '.'),
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
-                loader: 'babel', //用babel转换JSX
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
+                loader: "babel-loader",
+                options: {
+                    presets: ["es2015", "react"]
                 }
             }
         ]
-    }
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    output: {
+        path: __dirname,
+        filename: '../static/bundle.js'
+    },
 };
