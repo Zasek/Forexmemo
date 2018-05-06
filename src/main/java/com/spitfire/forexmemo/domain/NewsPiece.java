@@ -5,6 +5,7 @@
  * */
 package com.spitfire.forexmemo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -19,7 +20,9 @@ public class NewsPiece {
     private String labels;
     private String originLang;
 
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
     private Date actualTime;
+    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
     private Date postTime;
 
     public String getId() {
