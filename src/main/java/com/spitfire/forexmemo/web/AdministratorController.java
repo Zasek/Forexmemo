@@ -1,5 +1,6 @@
 package com.spitfire.forexmemo.web;
 
+import com.spitfire.forexmemo.annotation.AdminRequired;
 import com.spitfire.forexmemo.domain.Administrator;
 import com.spitfire.forexmemo.manager.TokenManager;
 import com.spitfire.forexmemo.service.AdministratorService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by H.W. on 5/4/2018.
  */
 @RestController
-@RequestMapping("/admin/authentication")
+@RequestMapping("/admin")
 public class AdministratorController {
 
     private final AdministratorService administratorService;
@@ -25,18 +26,27 @@ public class AdministratorController {
         this.tokenManager = tokenManager;
     }
 
-    @PostMapping("")
+    @PostMapping("/auth")
     public String login(@RequestBody Administrator visitor) {
-        Administrator expectedAdmin = administratorService.searchByAid(visitor.getAid());
-        String response = "Failed";
-        if (expectedAdmin != null && AdministratorService.checkUpwd(expectedAdmin.getPassword(), visitor.getPassword())) {
+        Administrator expectedAdmin = administratorService.searchByName(visitor.getName());
+        String response;
+        if (expectedAdmin != null && AdministratorService.checkPassword(expectedAdmin.getPassword(), visitor.getPassword())) {
             String token = tokenManager.createToken(expectedAdmin.getAid());
             if (token != null) {
                 response = token;
             } else {
                 // failed to generate token
+                throw new RuntimeException("Failed to generate token");
             }
+        } else {
+            throw new RuntimeException("Wrong admin name or password");
         }
         return response;
+    }
+
+    @PostMapping("")
+    @AdminRequired
+    public String addAdministrator(@RequestBody Administrator newAdmin) {
+        return administratorService.saveAdministrator(newAdmin).toString();
     }
 }
