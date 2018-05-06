@@ -20,8 +20,8 @@ public class AdministratorService {
                 .toString();
     }
 
-    public static boolean checkUpwd(String expected, String actual) {
-        return !(expected == null || actual == null)
+    public static boolean checkPassword(String expected, String actual) {
+        return (expected != null && actual != null)
                 && expected.equals(encrypt(actual));
     }
 
@@ -33,12 +33,26 @@ public class AdministratorService {
         this.administratorRepository = administratorRepository;
     }
 
-    public Administrator saveAdministrator(Administrator administrator) {
-        return administratorRepository.save(administrator);
+    public Administrator saveAdministrator(Administrator inputData) {
+        Administrator newAdmin = new Administrator();
+
+        // TODO data validation
+        // check if an admin with the same name exists
+        if (administratorRepository.findByName(inputData.getName()) != null) {
+            throw new RuntimeException("Account exists");
+        }
+        newAdmin.setName(inputData.getName());
+        newAdmin.setPassword(encrypt(inputData.getPassword()));
+
+        return administratorRepository.save(newAdmin);
     }
 
     public Administrator searchByAid(String aid) {
         return administratorRepository.findByAid(aid);
+    }
+
+    public Administrator searchByName(String name) {
+        return administratorRepository.findByName(name);
     }
 
     /**

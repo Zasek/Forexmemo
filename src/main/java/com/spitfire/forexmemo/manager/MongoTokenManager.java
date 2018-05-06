@@ -30,6 +30,9 @@ public class MongoTokenManager implements TokenManager {
 
     @Override
     public String createToken(String id) {
+        if (id == null) {
+            throw new RuntimeException("Invalid ID");
+        }
         String secrete;
         SecreteModel secreteModel = secreteModelRepository.findSecreteModelById(id);
         if (secreteModel != null) {
@@ -41,12 +44,13 @@ public class MongoTokenManager implements TokenManager {
             secreteModel.setId(id);
             secreteModel.setSecrete(secrete);
         }
-        String token = null;
+        String token;
         try {
             token = JWT.create()
                     .withAudience(id)
                     .sign(Algorithm.HMAC256(secrete)); // use upwd as the secret
         } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException("Unsupported encoding");
         }
 
         // stores it in Mongo
@@ -101,6 +105,7 @@ public class MongoTokenManager implements TokenManager {
             }
         } catch (UnsupportedEncodingException exception){
             //UTF-8 encoding not supported
+            throw new RuntimeException("Unsupported encoding");
         } catch (JWTVerificationException e) {
             //Invalid signature/claims
             throw new RuntimeException("Invalid signature/claims");
