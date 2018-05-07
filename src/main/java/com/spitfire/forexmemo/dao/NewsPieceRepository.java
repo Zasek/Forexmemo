@@ -10,6 +10,8 @@ import com.spitfire.forexmemo.domain.NewsPiece;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface NewsPieceRepository extends MongoRepository<NewsPiece, String>,
                                              PartialUpdate {
@@ -33,4 +35,9 @@ public interface NewsPieceRepository extends MongoRepository<NewsPiece, String>,
      * @return void
      * */
     void deleteNewsPieceById(String Id);
+
+    /*
+     * 测试用函数，不能当真的用……
+     * */
+    List<NewsPiece> findAll();
 }

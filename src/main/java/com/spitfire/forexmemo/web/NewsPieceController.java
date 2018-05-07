@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 
 @RestController
 public class NewsPieceController {
@@ -63,6 +65,11 @@ public class NewsPieceController {
     @RequestMapping(value="/news/{Id}/postTime", method = RequestMethod.PUT)
     public String updatePostTime(@PathVariable("Id") String Id, @RequestBody String updateContent){
         return newsPieceService.partialUpdate(Id, updateContent, "postTime");
+    }
+
+    @RequestMapping(value = "/react", method = RequestMethod.GET)
+    public List<NewsPiece> react(Model model) {
+        return newsPieceService.findAllNews();
     }
 
 }

@@ -1,8 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Hello from './components/Hello.js';
+
+class eachRow extends React.Component{
+    constructor(props){
+        super(props);
+        
+    }
+    render(){
+        return(
+            <div>
+
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(
-<Hello />,
-    document.getElementById('app')
+    <eachRow />
+    ,document.getElementById('root')
 );
