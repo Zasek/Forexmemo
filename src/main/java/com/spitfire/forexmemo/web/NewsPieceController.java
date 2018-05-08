@@ -9,7 +9,6 @@ package com.spitfire.forexmemo.web;
 import com.spitfire.forexmemo.domain.NewsPiece;
 import com.spitfire.forexmemo.service.NewsPieceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
@@ -24,7 +23,7 @@ public class NewsPieceController {
 
     @RequestMapping(value="/news", method = RequestMethod.POST)
     public String addNews(@RequestBody NewsPiece np){
-        return newsPieceService.saveNewsPiece(np).toString();
+        return newsPieceService.saveNewsPiece(np);
     }
 
     @RequestMapping(value="/news/{Id}", method = RequestMethod.GET)

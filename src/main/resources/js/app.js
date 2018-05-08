@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class eachRow extends React.Component{
+class displayList extends React.Component{
     constructor(props){
         super(props);
         
@@ -16,6 +16,6 @@ class eachRow extends React.Component{
 }
 
 ReactDOM.render(
-    <eachRow />
+    <displayList />
     ,document.getElementById('root')
 );

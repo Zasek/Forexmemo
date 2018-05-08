@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class NewsPieceService {
 
@@ -24,7 +25,7 @@ public class NewsPieceService {
      * @param newsPiece 完整的NewsPiece对象
      * @return 被保存的NewsPiece对象
      * */
-    public String saveNewsPiece(NewsPiece np){
+    public String saveNewsPiece(NewsPiece np) {
         if(!validateSave(np)){
             return "Invalid NewsPiece";
         }

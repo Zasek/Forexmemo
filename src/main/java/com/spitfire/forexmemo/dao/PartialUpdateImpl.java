@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class PartialUpdateImpl implements PartialUpdate {
 
     @Autowired
@@ -36,7 +35,7 @@ public class PartialUpdateImpl implements PartialUpdate {
             update.set(type, updateContent);
             mongoTemplate.updateFirst(query, update, NewsPiece.class);
         } else {
-            SimpleDateFormat s1 = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            SimpleDateFormat s1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
                 Date newDate = s1.parse(updateContent);
                 Query query = new Query();
