@@ -14,6 +14,7 @@ import java.util.List;
 
 @Repository
 public interface NewsPieceRepository extends MongoRepository<NewsPiece, String>,
+                                             CustomFind,
                                              PartialUpdate {
     /*
     * 保存新的NewsPiece
@@ -36,8 +37,4 @@ public interface NewsPieceRepository extends MongoRepository<NewsPiece, String>,
      * */
     void deleteNewsPieceById(String Id);
 
-    /*
-     * 测试用函数，不能当真的用……
-     * */
-    List<NewsPiece> findAll();
 }

@@ -10,12 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 @Controller
 public class WebNewsPieceCtrler {
 
     @RequestMapping(value = "/postnews", method = RequestMethod.GET)
     public String postNews(Model model) {
         return "postnews";
+    }
+
+    @RequestMapping(value = "/react", method = RequestMethod.GET)
+    public String react(Model model) {
+        return "react";
     }
 
 }

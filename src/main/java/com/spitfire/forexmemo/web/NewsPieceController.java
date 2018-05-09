@@ -66,9 +66,9 @@ public class NewsPieceController {
         return newsPieceService.partialUpdate(Id, updateContent, "postTime");
     }
 
-    @RequestMapping(value = "/react", method = RequestMethod.GET)
-    public List<NewsPiece> react(Model model) {
-        return newsPieceService.findAllNews();
+    @RequestMapping(value="/findByDate/{date}", method = RequestMethod.GET)
+    public List<NewsPiece> findByDate(@PathVariable("date") String date){
+        return newsPieceService.findByDate(date);
     }
 
 }

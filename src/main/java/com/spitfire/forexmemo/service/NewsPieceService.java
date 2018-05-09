@@ -94,7 +94,9 @@ public class NewsPieceService {
         return result;
     }
 
-    public List<NewsPiece> findAllNews(){
-        return newsPieceRepository.findAll();
+    public List<NewsPiece> findByDate(String date){
+        String startTime = date+" 00:00:00.000";
+        String endTime = date+" 23:59:59.999";
+        return newsPieceRepository.findByDate(startTime, endTime);
     }
 }
