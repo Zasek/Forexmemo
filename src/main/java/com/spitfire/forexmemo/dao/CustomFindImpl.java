@@ -2,6 +2,7 @@ package com.spitfire.forexmemo.dao;
 
 import com.spitfire.forexmemo.domain.NewsPiece;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,6 +25,7 @@ public class CustomFindImpl implements CustomFind{
         try {
             Query query = new Query();
             query.addCriteria(Criteria.where("actualTime").gte(s1.parse(startTime)).lt(s1.parse(endTime)));
+            query.with(new Sort(Sort.Direction.ASC, "actualTime"));
             nlist = mongoTemplate.find(query, NewsPiece.class);
         } catch (ParseException e) {
             e.printStackTrace();

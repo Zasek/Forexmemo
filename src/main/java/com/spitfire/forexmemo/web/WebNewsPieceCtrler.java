@@ -19,7 +19,7 @@ public class WebNewsPieceCtrler {
         return "postnews";
     }
 
-    @RequestMapping(value = "/react", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String react(Model model) {
         return "react";
     }
