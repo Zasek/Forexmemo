@@ -12,8 +12,8 @@ export class Modal extends React.Component {
             transform: 'translate(-50%, -50%)',
             zIndex: '9999',
             background: '#fff',
-            width: '300px',
-            height: '300px'
+            width: '500px',
+            height: '500px'
         };
 
         let backdropStyle = {

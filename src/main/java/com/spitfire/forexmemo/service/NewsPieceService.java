@@ -96,8 +96,6 @@ public class NewsPieceService {
 
     public List<NewsPiece> findByDate(String date){
         String[] s = date.split("E");
-        System.out.println(s[0]);
-        System.out.println(s[1]);
         String startTime = s[0];
         String endTime = s[1];
         return newsPieceRepository.findByDate(startTime, endTime);
