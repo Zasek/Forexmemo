@@ -5,13 +5,26 @@ export class DisplayList extends React.Component{
     constructor(){
         super();
         const loadingList = [{"id":"loading", "content":"loading", "source":"loading", "labels":"loading", "originLang":"loading", "actualTime":"loading", "postTime":"loading"}];
+
+        let today = new Date();
+        let todayStr = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+
         this.state = {
-            newsList:loadingList
+            newsList:loadingList,
+            dateStr: todayStr
         };
+
+        this.handlePreviousDate = this.handlePreviousDate.bind(this);
+        this.handleNextDate = this.handleNextDate.bind(this);
+
     }
 
     componentDidMount(){
-        const date = getStartEndTime();
+        this.fetchData();
+    }
+
+    fetchData(){
+        const date = getStartEndTime(this.state.dateStr);
         fetch('http://localhost:8080/findByDate/'+date, {method: 'GET'})
             .then((response) => {
                 return response.json();
@@ -24,9 +37,37 @@ export class DisplayList extends React.Component{
             });
     }
 
+    handlePreviousDate(){
+        let listOfDate = this.state.dateStr.split("-");
+        let current = new Date();
+
+        current.setFullYear(parseInt(listOfDate[0]));
+        current.setMonth(parseInt(listOfDate[1]));
+        current.setDate(parseInt(listOfDate[2]));
+        current.setDate(current.getDate()-1);
+        let newDateStr = current.getFullYear()+"-"+current.getMonth()+"-"+current.getDate();
+        this.setState({dateStr:newDateStr}, function () {
+            this.fetchData();
+        });
+    }
+
+    handleNextDate(){
+        let listOfDate = this.state.dateStr.split("-");
+        let current = new Date();
+
+        current.setFullYear(parseInt(listOfDate[0]));
+        current.setMonth(parseInt(listOfDate[1]));
+        current.setDate(parseInt(listOfDate[2]));
+        current.setDate(current.getDate()+1);
+        let newDateStr = current.getFullYear()+"-"+current.getMonth()+"-"+current.getDate();
+        this.setState({dateStr:newDateStr}, function () {
+            this.fetchData();
+        });
+    }
+
     render(){
-        const listItem = this.state.newsList.map(
-            (eachNews) => <div key={eachNews.id}>
+        const listItem = this.state.newsList.map((eachNews) =>
+            <div key={eachNews.id}>
                 <div>{eachNews.content}</div>
                 <div>{convertToLocal(eachNews.actualTime)}</div>
             </div>
@@ -34,13 +75,20 @@ export class DisplayList extends React.Component{
         if(listItem.length > 0){
             return(
                 <div>
-                    {listItem}
+                    <button onClick={this.handlePreviousDate}>前一天</button>
+                    <span>{changeToDisplay(this.state.dateStr)}</span>
+                    <button onClick={this.handleNextDate}>后一天</button>
+                    <div>{listItem}</div>
                 </div>
+
             );
         } else {
             return(
                 <div>
-                    No Records for this date
+                    <button onClick={this.handlePreviousDate}>前一天</button>
+                    <span>{changeToDisplay(this.state.dateStr)}</span>
+                    <button onClick={this.handleNextDate}>后一天</button>
+                    <div>No Records for this date</div>
                 </div>
             );
         }
@@ -60,10 +108,15 @@ function convertToLocal(UTCTime) {
     return addZero(localDate.getHours())+":"+addZero(localDate.getMinutes());
 }
 
-function getStartEndTime(){
+function getStartEndTime(dateStr){
+
+    let listOfDate = dateStr.split("-");
 
     var now = new Date();
 
+    now.setFullYear(parseInt(listOfDate[0]));
+    now.setMonth(parseInt(listOfDate[1]));
+    now.setDate(parseInt(listOfDate[2]));
     now.setHours(0);
     now.setMinutes(0);
     now.setSeconds(0);
@@ -88,6 +141,11 @@ function getStartEndTime(){
     endStr += addZero(endDate.getUTCHours())+":59:59.999";
 
     return startStr+endStr;
+}
+
+function changeToDisplay(dateStr) {
+    let listStr = dateStr.split("-");
+    return listStr[0]+"-"+(parseInt(listStr[1])+1)+"-"+listStr[2];
 }
 
 function addZero (number) {
